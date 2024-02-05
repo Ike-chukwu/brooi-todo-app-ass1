@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+
+.todo-container {
+    padding-block: 7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.todo-container .heading {
+    text-transform: uppercase;
+    font-size: 3rem;
+}
+
+.todo-container .inner-todo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 400px;
+    background: blue;
+    padding: 2rem 3rem;
+    color: white;
+}
+
+.todo-container .inner-todo-container .inputContainer {
+    width: 100%;
+    background: white;
+    color: black;
+    height: 40px;
+    padding-inline: 1rem;
+}
+
+
+.todo-container .inner-todo-container .inputContainer .main-input {
+    padding: .2rem;
+    width: 94%;
+    height: 100%;
+    border: none;
+    outline: none;
+}
+
+
+.todo-container .inner-todo-container .inputContainer .fa-plus {
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+
+.todo-container .inner-todo-container .tasksContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.todo-container .inner-todo-container .tasksContainer .task-wrapper {
+    width: 100%;
+    background: yellow;
+    padding: 1rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.todo-container .inner-todo-container .tasksContainer .task-wrapper .icon-pack {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+
+.todo-container .inner-todo-container .tasksContainer .task-wrapper .task {
+    font-size: 1.6rem;
+    color: black;
+}
+
+
+.todo-container .inner-todo-container .tasksContainer .task-wrapper .icon-pack .i-check {
+    cursor: pointer;
+}
+
+.todo-container .inner-todo-container .tasksContainer .task-wrapper .icon-pack .fa-pen {
+    cursor: pointer;
+    color: black;
+}
