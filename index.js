@@ -8,13 +8,14 @@ const taskCompletionRecord = document.querySelector(
   ".todo-container .task-status-wrapper .task-status"
 );
 const taskContainer = document.querySelector(".tasksContainer");
-const todoList = [];
+let todoList = [];
+let listOfTickedCards = [];
 let completedTasksNo = 0;
-let editedTaskIndex;
-let tickedCardsIndex = [];
+let taskToBeEditedIndex;
 let task;
+let temp;
 
-//set the text monitoring checkbox to its default length
+//set the text monitoring checkbox/completed tasks to its default length
 taskCompletionRecord.textContent = `${completedTasksNo} out of ${
   todoList.length
 } ${todoList.length == 1 || todoList.length == 0 ? "task" : "tasks"} completed`;
@@ -31,12 +32,16 @@ const submitTaskHandler = () => {
     return;
   } else {
     if (todoList.includes(task)) {
-      console.log("yes");
       return;
     } else {
-      if (editedTaskIndex || editedTaskIndex == 0) {
-        todoList[editedTaskIndex] = task;
-        editedTaskIndex = null;
+      if (taskToBeEditedIndex || taskToBeEditedIndex == 0) {
+        todoList[taskToBeEditedIndex] = task;
+        if (listOfTickedCards.includes(temp)) {
+          const indexOFTaskInTickedCards = listOfTickedCards.indexOf(temp);
+          listOfTickedCards[indexOFTaskInTickedCards] = task;
+        }
+        temp = null;
+        taskToBeEditedIndex = null;
         console.log(todoList);
       } else {
         todoList.push(task);
@@ -55,18 +60,8 @@ plusButton.addEventListener("click", submitTaskHandler);
 
 //function that renders all tasks in the array
 const renderTasksHandler = () => {
-  //   const tasksElements = todoList.map((task) => {
-  //     return `<div class="task-wrapper">
-  //         <p class="task">Eat</p>
-  //         <div class="icon-pack">
-  //           <i class="fas fa-pen"></i>
-  //           <input type="checkbox" class="i-check" />
-  //         </div>
-  //       </div>`;
-  //   });
   taskContainer.innerHTML = ``;
   todoList.forEach((task, index) => {
-    console.log(tickedCardsIndex.includes(index));
     const taskDiv = document.createElement("div");
     taskDiv.className = "task-wrapper";
     taskDiv.innerHTML = ` <p class="task">${task}</p>
@@ -75,29 +70,55 @@ const renderTasksHandler = () => {
       <i class="fas fa-pen"></i>
       </button>
       <input type="checkbox" class="i-check"/>
+      <button class="deleteBtn">
+        <i class="fas fa-trash"></i>
+        </button>
     </div>`;
     const penIcon = taskDiv.querySelector(".editBtn");
     penIcon.addEventListener("click", () => {
       const clickedTaskValue =
         penIcon.parentElement.parentElement.children[0].textContent;
       inputField.value = clickedTaskValue;
-      editedTaskIndex = todoList.indexOf(clickedTaskValue);
+      taskToBeEditedIndex = todoList.indexOf(clickedTaskValue);
+      temp = clickedTaskValue;
       console.log(clickedTaskValue);
     });
     const checkMarkIcon = taskDiv.querySelector("input");
-    if (tickedCardsIndex.includes(index)) {
+    if (listOfTickedCards.includes(task)) {
       checkMarkIcon.checked = true;
     }
-    console.log(checkMarkIcon);
     checkMarkIcon.addEventListener("change", () => {
       if (checkMarkIcon.checked) {
         completedTasksNo++;
-        tickedCardsIndex.push(index);
-        console.log(tickedCardsIndex);
+        const checkedTaskValue =
+          checkMarkIcon.parentElement.parentElement.children[0].textContent;
+        listOfTickedCards.push(checkedTaskValue);
+        console.log(listOfTickedCards);
       } else {
+        const checkedTaskValue =
+          checkMarkIcon.parentElement.parentElement.children[0].textContent;
+        listOfTickedCards = listOfTickedCards.filter(
+          (task) => task !== checkedTaskValue
+        );
         completedTasksNo--;
-        tickedCardsIndex = tickedCardsIndex.filter((pos) => pos !== index);
+        console.log(listOfTickedCards);
       }
+      taskCompletionRecord.textContent = `${completedTasksNo} out of ${
+        todoList.length
+      } ${
+        todoList.length == 1 || todoList.length == 0 ? "task" : "tasks"
+      } completed`;
+    });
+    const deleteBtn = taskDiv.querySelector(".deleteBtn");
+    deleteBtn.addEventListener("click", () => {
+      const value = taskDiv.querySelector(".task").textContent;
+      if (listOfTickedCards.includes(value)) {
+        listOfTickedCards = listOfTickedCards.filter((task) => task !== value);
+        console.log(listOfTickedCards);
+        completedTasksNo--;
+      }
+      todoList = todoList.filter((task) => task !== value);
+      renderTasksHandler();
       taskCompletionRecord.textContent = `${completedTasksNo} out of ${
         todoList.length
       } ${
@@ -106,7 +127,4 @@ const renderTasksHandler = () => {
     });
     taskContainer.appendChild(taskDiv);
   });
-  //   const newlyRenderedTaskElements = todoList.map((task) => {
-  //     return taskDiv;
-  //   });
 };
