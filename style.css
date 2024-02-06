@@ -10,6 +10,11 @@ html {
 }
 
 
+body {
+    background: #E3E9FF;
+}
+
+
 .todo-container {
     padding-block: 7rem;
     display: flex;
@@ -21,17 +26,35 @@ html {
 .todo-container .heading {
     text-transform: uppercase;
     font-size: 3rem;
+    color: #757575;
+    font-weight: bold;
 }
 
 .todo-container .inner-todo-container {
     display: flex;
+    position: relative;
     flex-direction: column;
     gap: 2rem;
     width: 400px;
-    background: blue;
-    padding: 2rem 3rem;
+    background: #AF7EEB;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    padding-inline: 3rem;
     color: white;
 }
+
+.todo-container .inner-todo-container .task-status-wrapper {
+    position: absolute;
+    left: 0;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.todo-container .inner-todo-container .task-status-wrapper .task-status {
+    font-size: 1.3rem;
+}
+
 
 .todo-container .inner-todo-container .inputContainer {
     width: 100%;
@@ -50,11 +73,15 @@ html {
     outline: none;
 }
 
-
-.todo-container .inner-todo-container .inputContainer .fa-plus {
-    font-size: 1.6rem;
+.todo-container .inner-todo-container .inputContainer button {
+    border: none;
+    background: #C8ABFD;
+    color: white;
+    font-weight: bold;
+    padding: .2rem;
     cursor: pointer;
 }
+
 
 
 .todo-container .inner-todo-container .tasksContainer {
@@ -65,7 +92,7 @@ html {
 
 .todo-container .inner-todo-container .tasksContainer .task-wrapper {
     width: 100%;
-    background: yellow;
+    background: white;
     padding: 1rem 1rem;
     display: flex;
     align-items: center;
@@ -82,7 +109,7 @@ html {
 
 .todo-container .inner-todo-container .tasksContainer .task-wrapper .task {
     font-size: 1.6rem;
-    color: black;
+    color: #757575;
 }
 
 
@@ -90,7 +117,22 @@ html {
     cursor: pointer;
 }
 
-.todo-container .inner-todo-container .tasksContainer .task-wrapper .icon-pack .fa-pen {
+.editBtn {
+    background: #C8ABFD;
+    border: none;
+    outline: none;
+    color: white;
     cursor: pointer;
-    color: black;
+    padding: .4rem .5rem;
+    font-size: 1.2rem;
+}
+
+
+@media(max-width:430px) {
+    .todo-container .inner-todo-container {
+        width: 280px;
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+        padding-inline: 1.5rem;
+    }
 }
