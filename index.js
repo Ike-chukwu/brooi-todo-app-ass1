@@ -42,7 +42,6 @@ const submitTaskHandler = () => {
         }
         temp = null;
         taskToBeEditedIndex = null;
-        console.log(todoList);
       } else {
         todoList.push(task);
         taskCompletionRecord.textContent = `${completedTasksNo} out of ${
@@ -81,7 +80,6 @@ const renderTasksHandler = () => {
       inputField.value = clickedTaskValue;
       taskToBeEditedIndex = todoList.indexOf(clickedTaskValue);
       temp = clickedTaskValue;
-      console.log(clickedTaskValue);
     });
     const checkMarkIcon = taskDiv.querySelector("input");
     if (listOfTickedCards.includes(task)) {
@@ -93,7 +91,6 @@ const renderTasksHandler = () => {
         const checkedTaskValue =
           checkMarkIcon.parentElement.parentElement.children[0].textContent;
         listOfTickedCards.push(checkedTaskValue);
-        console.log(listOfTickedCards);
       } else {
         const checkedTaskValue =
           checkMarkIcon.parentElement.parentElement.children[0].textContent;
@@ -101,7 +98,6 @@ const renderTasksHandler = () => {
           (task) => task !== checkedTaskValue
         );
         completedTasksNo--;
-        console.log(listOfTickedCards);
       }
       taskCompletionRecord.textContent = `${completedTasksNo} out of ${
         todoList.length
@@ -114,7 +110,6 @@ const renderTasksHandler = () => {
       const value = taskDiv.querySelector(".task").textContent;
       if (listOfTickedCards.includes(value)) {
         listOfTickedCards = listOfTickedCards.filter((task) => task !== value);
-        console.log(listOfTickedCards);
         completedTasksNo--;
       }
       todoList = todoList.filter((task) => task !== value);
